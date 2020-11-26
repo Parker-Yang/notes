@@ -1,4 +1,4 @@
-package DoubleList
+package doubleList
 
 import (
 	"sync"
@@ -18,21 +18,13 @@ type Node struct {
 	Next  *Node
 	Value interface{}
 }
-
-func New() *DoubleList {
-	double := new(DoubleList)
-	double.Head.Next = double.Tail
-	double.Tail.Pre = double.Head
-	return double
-}
-
 // 从头部添加值
 func (d *DoubleList) AddNodeFormHead(n int, data interface{}) {
 	d.Lock.Lock()
 	defer d.Lock.Unlock()
 	node := new(Node)
 	node.Value = data
-	if d.Head.Next.Value == nil {
+	if d.Head.Next == nil {
 		d.Head.Next = node
 		node.Pre = d.Head
 		d.Tail.Pre = node
